@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Ven 17 Mai 2013 à 18:39
+-- Généré le : Sam 18 Mai 2013 à 10:26
 -- Version du serveur: 5.5.8
 -- Version de PHP: 5.3.5
 
@@ -27,7 +27,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE IF NOT EXISTS `categorie` (
   `idCategorie` int(11) NOT NULL AUTO_INCREMENT,
-  `libelleCategorie` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  `libelleCategorie` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idCategorie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -44,11 +44,9 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 
 CREATE TABLE IF NOT EXISTS `commentaire` (
   `idCommentaire` int(11) NOT NULL AUTO_INCREMENT,
-  `contenu` text CHARACTER SET latin1 NOT NULL,
-  `idPersonne` int(11) NOT NULL,
+  `contenu` text NOT NULL,
   `dateCommentaire` datetime NOT NULL,
-  PRIMARY KEY (`idCommentaire`),
-  KEY `idPersonne` (`idPersonne`)
+  PRIMARY KEY (`idCommentaire`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -64,9 +62,9 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
 
 CREATE TABLE IF NOT EXISTS `interview` (
   `idInterview` int(11) NOT NULL AUTO_INCREMENT,
-  `libelleInterview` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `libelleInterview` varchar(255) NOT NULL,
   `dateInterview` datetime NOT NULL,
-  `pathInterview` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `pathInterview` varchar(255) NOT NULL,
   `idPersonne` int(11) NOT NULL,
   PRIMARY KEY (`idInterview`),
   KEY `idPersonne` (`idPersonne`)
@@ -85,10 +83,10 @@ CREATE TABLE IF NOT EXISTS `interview` (
 
 CREATE TABLE IF NOT EXISTS `localisation` (
   `idLocalisation` int(11) NOT NULL AUTO_INCREMENT,
-  `pays` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `region` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `ville` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `quartier` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `pays` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  `ville` varchar(255) DEFAULT NULL,
+  `quartier` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idLocalisation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -105,8 +103,8 @@ CREATE TABLE IF NOT EXISTS `localisation` (
 
 CREATE TABLE IF NOT EXISTS `media` (
   `idMedia` int(11) NOT NULL AUTO_INCREMENT,
-  `path` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `libelleMedia` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `libelleMedia` varchar(255) DEFAULT NULL,
   `idTypeMedia` int(11) DEFAULT NULL,
   PRIMARY KEY (`idMedia`),
   KEY `idTypeMedia` (`idTypeMedia`)
@@ -125,15 +123,15 @@ CREATE TABLE IF NOT EXISTS `media` (
 
 CREATE TABLE IF NOT EXISTS `personne` (
   `idPersonne` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `prenom` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `adresse` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
-  `telephone` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
-  `photo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `nom` varchar(255) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `adresse` varchar(100) DEFAULT NULL,
+  `telephone` varchar(50) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `dateInscription` datetime NOT NULL,
-  `pseudo` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `password` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `pseudo` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `dateNaissance` date DEFAULT NULL,
   PRIMARY KEY (`idPersonne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -150,13 +148,15 @@ CREATE TABLE IF NOT EXISTS `personne` (
 --
 
 CREATE TABLE IF NOT EXISTS `personnepostcommentaire` (
-  `idPersonne` int(11) NOT NULL,
+  `idPersonnePost` int(11) NOT NULL,
   `idPost` int(11) NOT NULL,
   `idCommentaire` int(11) NOT NULL,
-  PRIMARY KEY (`idPersonne`,`idPost`,`idCommentaire`),
-  KEY `idPersonne` (`idPersonne`),
+  `idPersonneCommentaire` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idPersonnePost`,`idPost`,`idCommentaire`,`idPersonneCommentaire`),
   KEY `idPost` (`idPost`),
-  KEY `idCommentaire` (`idCommentaire`)
+  KEY `idCommentaire` (`idCommentaire`),
+  KEY `idPersonneCommentaire` (`idPersonneCommentaire`),
+  KEY `idPersonnePost` (`idPersonnePost`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -173,12 +173,12 @@ CREATE TABLE IF NOT EXISTS `personnepostcommentaire` (
 CREATE TABLE IF NOT EXISTS `post` (
   `idPost` int(11) NOT NULL AUTO_INCREMENT,
   `idMedia` int(11) NOT NULL,
-  `texte` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `texte` varchar(255) NOT NULL,
   `datePost` datetime NOT NULL,
   `idCategorie` int(11) NOT NULL,
-  `titre` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `titre` varchar(255) NOT NULL,
   `idLocalisation` int(11) NOT NULL,
-  `tag` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `tag` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idPost`),
   KEY `idMedia` (`idMedia`),
   KEY `idCategorie` (`idCategorie`),
@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `signalcommentaire` (
   `idPersonne` int(11) NOT NULL,
   `idCommentaire` int(11) NOT NULL,
   `dateSignalCommentaire` datetime NOT NULL,
-  `motifSignalCommentaire` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `motifSignalCommentaire` varchar(255) NOT NULL,
   PRIMARY KEY (`idPersonne`,`idCommentaire`),
   KEY `idPersonne` (`idPersonne`),
   KEY `idCommentaire` (`idCommentaire`)
@@ -221,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `signalpost` (
   `idPersonne` int(11) NOT NULL,
   `idPost` int(11) NOT NULL,
   `dateSignalPost` datetime NOT NULL,
-  `motifSignalPost` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `motifSignalPost` varchar(255) NOT NULL,
   PRIMARY KEY (`idPersonne`,`idPost`),
   KEY `idPersonne` (`idPersonne`),
   KEY `idPost` (`idPost`)
@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `signalpost` (
 
 CREATE TABLE IF NOT EXISTS `typemedia` (
   `idTypeMedia` int(11) NOT NULL AUTO_INCREMENT,
-  `libelleTypeMedia` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `libelleTypeMedia` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idTypeMedia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -252,12 +252,6 @@ CREATE TABLE IF NOT EXISTS `typemedia` (
 --
 -- Contraintes pour les tables exportées
 --
-
---
--- Contraintes pour la table `commentaire`
---
-ALTER TABLE `commentaire`
-  ADD CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`idPersonne`) REFERENCES `personne` (`idPersonne`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `interview`
@@ -275,9 +269,10 @@ ALTER TABLE `media`
 -- Contraintes pour la table `personnepostcommentaire`
 --
 ALTER TABLE `personnepostcommentaire`
-  ADD CONSTRAINT `personnepostcommentaire_ibfk_7` FOREIGN KEY (`idPersonne`) REFERENCES `personne` (`idPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `personnepostcommentaire_ibfk_8` FOREIGN KEY (`idPost`) REFERENCES `post` (`idPost`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `personnepostcommentaire_ibfk_9` FOREIGN KEY (`idCommentaire`) REFERENCES `commentaire` (`idCommentaire`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `personnepostcommentaire_ibfk_16` FOREIGN KEY (`idPersonneCommentaire`) REFERENCES `personne` (`idPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `personnepostcommentaire_ibfk_13` FOREIGN KEY (`idPersonnePost`) REFERENCES `personne` (`idPersonne`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `personnepostcommentaire_ibfk_14` FOREIGN KEY (`idPost`) REFERENCES `post` (`idPost`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `personnepostcommentaire_ibfk_15` FOREIGN KEY (`idCommentaire`) REFERENCES `commentaire` (`idCommentaire`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `post`
