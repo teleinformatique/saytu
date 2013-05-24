@@ -3,18 +3,18 @@
 
 
 <?php
+        //Pour afficher la balise <img> de l'objet
+        $affichePhoto='';
+        //Variable contenant les details de l'objet
+        $details='';
         
         if(isset($_GET['details'])){
             //Recuperer la valeur de l'identifiant de l'objet
             $idobjet=$_GET['details'];
             //Inclure le fichier de connexion
-            include_once("../includes/connexion.php");
-            //Connexion a la base de donnees
-            connecte(HOST,USER,PASSWORD);
-            //Selectionner la base de donnees
-            use_db(DB);
+            include_once("connexion.php");
             //Declarationd des variables
-            $idObjet='';
+            //$idObjet='';
             $libelle='';
             $statut='';
             $lieuRamassage='';
@@ -38,20 +38,16 @@
             $modele='';
             $couleur='';
             $photo='';
-            //Pour afficher la balise <img>
-            $affichePhoto='';
-            //Variable contenant les details
-            $details='';
+            
             
             //Execution de la requete dans la base de donnees
+                       
             $query= $bdd->query("SELECT *
-			FROM objet, personne
-			WHERE objet.idObjet='$idobjet' AND 
-                              (objet.idRamasseur=personne.idPersonne OR 
-                              objet.idProprietaire=personne.idPersonne)");
+			FROM objet
+			WHERE objet.idObjet='$idobjet'");
+            
             //Recuperation du resultat  
             $donnees = $query->fetch();
-            $idObjet=$donnees['idObjet'];
             $libelle=$donnees['libelle'];
             $statut=$donnees['statut'];
             $lieuRamassage=$donnees['lieuRamassage'];
@@ -62,6 +58,7 @@
             $idProprietaire  = $donnees['idProprietaire'];
             $lieuPerte=$donnees['lieuPerte'];
             $datePerte=$donnees['datePerte'];
+            
             
                 //OBJETS TROUVES
                 if(isset($idRamasseur)){
@@ -75,7 +72,7 @@
                         $prenom=$donnees4['prenom'];
                         $telephone=$donnees4['telephone'];
                         $email=$donnees4['email'];
-
+                        
                         //si une piece
                         if(isset($idPiece)){
                             //Dans ce cas on a une piece
@@ -84,7 +81,8 @@
                                     WHERE piece.idPiece='$idPiece' ");
 
                             //Recuperation du resultat
-                            $donnes2=$query2->fetch();
+                            $donnees2=$query2->fetch();
+                            //print_r($donnees2);
                             $numeroPiece=$donnees2['numeroPiece'];
                             $nomTitulaire=$donnees2['nomTitulaire'];
                             $prenomTitulaire=$donnees2['prenomTitulaire'];
@@ -118,6 +116,23 @@
                                         <td>Date de ramassage</td>
                                         <td>{$dateDeclaration}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Nom ramasseur</td>
+                                        <td>{$nom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prenom ramasseur</td>
+                                        <td>{$prenom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email ramasseur</td>
+                                        <td>{$email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telephone ramasseur</td>
+                                        <td>{$telephone}</td>
+                                    </tr>
+                                    
                             ";
                         }
                         else{
@@ -163,6 +178,22 @@
                                         <td>Date de ramassage</td>
                                         <td>{$dateDeclaration}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Nom ramasseur</td>
+                                        <td>{$nom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prenom ramasseur</td>
+                                        <td>{$prenom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email ramasseur</td>
+                                        <td>{$email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telephone ramasseur</td>
+                                        <td>{$telephone}</td>
+                                    </tr>
                             ";
                         }
                 }
@@ -187,7 +218,7 @@
                                     WHERE piece.idPiece='$idPiece' ");
 
                             //Recuperation du resultat
-                            $donnes2=$query2->fetch();
+                            $donnees2=$query2->fetch();
                             $numeroPiece=$donnees2['numeroPiece'];
                             $nomTitulaire=$donnees2['nomTitulaire'];
                             $prenomTitulaire=$donnees2['prenomTitulaire'];
@@ -221,6 +252,22 @@
                                         <td>Date de declaration</td>
                                         <td>{$dateDeclaration}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Nom declareur</td>
+                                        <td>{$nom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prenom declareur</td>
+                                        <td>{$prenom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email declareur</td>
+                                        <td>{$email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telephone declareur</td>
+                                        <td>{$telephone}</td>
+                                    </tr>
                             ";
                         }
                         else{
@@ -229,7 +276,7 @@
                                     FROM autres
                                     WHERE autres.idAutres='$idAutres' ");
                             //Recuperation du resultat
-                            $donnees3=$query3.fetch();
+                            $donnees3=$query3->fetch();
                             $marque=$donnees3['marque'];
                             $modele=$donnees3['modele'];
                             $couleur=$donnees3['couleur'];
@@ -247,11 +294,11 @@
                                         <td>{$marque}</td>
                                     </tr>
                                     <tr>
-                                        <td>Nom titulaire</td>
+                                        <td>Modele</td>
                                         <td>{$modele}</td>
                                     </tr>
                                     <tr>
-                                        <td>Prenom titulaire</td>
+                                        <td>Couleur</td>
                                         <td>{$couleur}</td>
                                     </tr>
                                     <tr>
@@ -265,6 +312,22 @@
                                     <tr>
                                         <td>Date de perte</td>
                                         <td>{$dateDeclaration}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom declareur</td>
+                                        <td>{$nom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prenom declareur</td>
+                                        <td>{$prenom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email declareur</td>
+                                        <td>{$email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telephone declareur</td>
+                                        <td>{$telephone}</td>
                                     </tr>
                             ";
                         }
@@ -289,7 +352,7 @@
                 <h1> Details<h1>
             <table>
                  <!--Affichage details objets-->
-                <?php echo ($details?$details:''); ?>
+                <?php echo($details? $details:''); ?>
             </table>
         </div>
     </body>
