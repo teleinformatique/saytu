@@ -1,1 +1,6 @@
-ce repertoire contient les feuilles de styles qui appliquees au site.
+/*
+*@author : Mouhamadou SEYE
+*@description : ce repertoire contient les fichiers qui sseront à inclure dans les pages.
+*
+*/
+
