@@ -1,7 +1,7 @@
 /* 
     Document   : accueil
     Created on : 24 mai 2013, 11:32:33
-    Author     : Fançoise
+    Author     : Soft Solution
     Description:
         Purpose of the stylesheet follows.
 */
@@ -13,16 +13,98 @@ body{
 
 }
 #header{
-    
-    width: 995px;
-    height: 150px;
-    margin-left: 188px;
+    background: none repeat scroll 0 0 gray;
+    border: 2px solid;
+    height: 80px;
+    width: 100%;
     
 }
 .logo{
     float: left;
     height: 150px;
     width: 200px;
+}
+#search{
+     left: 260px;
+    margin: 20px 0 0;
+    position: relative;
+	width:1000px;
+
+}
+#search .input{
+	font-size:0.8em;
+}
+#searchAvance
+{
+	background: none repeat scroll 0 0 black;
+    height: 55px;
+    left: 566px;
+    position: relative;
+    top: -40px;
+    width: 285px;
+}
+#btRechercheAvancee
+{
+	  background: none repeat scroll 0 0 black;
+    font-size: 0.7em;
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    top: 13px;
+    width: 75px;
+}
+#connecte
+{
+	background: none repeat scroll 0 0 gray;
+    color: black;
+    font-size: 0.8em;
+    left: 77px;
+    position: relative;
+    text-align: center;
+    top: -12px;
+    width: 200px;
+    word-spacing: 5px;
+}
+#connexionImpossible
+{
+	color: red;
+    position: relative;
+    text-align: center;
+    text-decoration: blink;
+}
+
+#connexionFieldset
+{
+	border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 0 4px black;
+    margin: auto;
+    padding: 25px 0;
+    width: 400px;
+}
+
+#connexionFieldset .input
+{
+	 border-radius: 5px 5px 5px 5px;
+    box-shadow: 1px 0 3px black;
+    color: black;
+    font-family: cursive;
+    font-size: 1em;
+    text-align: center;
+    text-shadow: 1px 1px 2px black;
+    word-spacing: 10px;
+	height:35px;
+}
+
+#corps
+{
+	width:900px;
+	background:gray;
+}
+
+#choice
+{
+	width:400px;
+	background:gray;
 }
 
 @font-face {
@@ -36,24 +118,30 @@ body{
     font-style: normal;
 }
 .ca-menu{
-    padding:0;
-    margin: 20px 100px 5px 185px;
-    width: 100%;
+     margin: 5px 100px 35px 185px;
+    padding: 0;
+    position: relative;
+    top: -40px;
+    
     
     
 }
+.formTrouvePiece
+{
+	width:800px;
+	background:black;
+}
 .ca-menu li{
    
-width: 200px;
-height: 60px;
+width: 240px;
+height: 70px;
 overflow: hidden;
 position: relative;
-box-shadow: 1px 2px 2px black;
 display: block;
 background: #fff;
--webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
--moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+-webkit-box-shadow: 1px 0 2px inset;
+-moz-box-shadow: 1px 0 2px inset;
+//box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 margin-bottom: 4px;
 -webkit-transition: all 300ms linear;
 -moz-transition: all 300ms linear;
@@ -85,7 +173,7 @@ float: left;
     position: absolute;
     width: 90px;
     left: -10px;
-    top: -16px;
+    top: -14px;
     text-align: center;
     -webkit-transition: all 300ms linear;
     -moz-transition: all 300ms linear;
@@ -95,10 +183,10 @@ float: left;
 }
 .ca-content{
     position: absolute;
-    left: 65px;
+    left: 85px;
     width: 370px;
     height: 60px;
-    top: 3px;
+    top: 7px;
 }
 .ca-main{
     font-size: 18px;
@@ -237,32 +325,48 @@ h1 span{
 
 
 #pieces{
-    float: left;
+    width:900px;
+	margin:auto;
+    
+}
+#autres{
+    width:900px;
+	margin:auto;
     
 }
 textarea{
     width: 200px;
     height: 80px;
 }
+.personne{
+	
+	border: medium none transparent;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 1px 1px 3px black;
+    float: right;
+    height: 200px;
+    margin-bottom: 10px;
+    width: 400px;
+}
 
 .CIN{
+    
+    border: medium none transparent;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 1px 1px 3px black;
     float: left;
-    margin-top: 50px;
-    margin-left: 200px;
+    height: 200px;
+    margin-bottom: 10px;
     width: 400px;
-    border: 1px solid;
-    border-radius: 15px;
-    box-shadow: 2px 2px 2px 2px #4682b4;
-    background:#e6eecc url(blanc.jpg)  top left;
+    
 }
 .CIN1{
-    float: right;
-    margin-top: 50px;
-    margin-left: 120px;
-    width: 400px;
-    margin-right: -105px;
-    border: 1px solid;
+    
     border-radius: 15px;
     background:#e6eecc url(blanc.jpg)  top left;
     box-shadow: 2px 2px 2px 2px #4682b4;
+}
+.btValidate{
+width:400px;
+background:black;
 }

@@ -1,6 +1,6 @@
 <?php 
 -/*
--*@author : Mouhamadou SEYE
+-*@author : 
 -*@description : Le moteur de recherche
 -*/
 -// database settings 
@@ -17,20 +17,51 @@ $champ = 'details';
 $NB_carac = 100; 
 ?> 
 <html>
-    <head>
-        <style>
-    .cherche{
-        margin-top: 50px;
-        margin-left:  500px;
-    }
-        </style>
-    </head>
+    
     <body>
-        <form method="post" action="search.php" class="cherche"> 
-        <input type="search" name="Psearch" size="50"> 
-        <input type="submit" value="Search"> 
+	<?php 
+		session_start();
+		
+		if(!$_SESSION){
+	?>
+        <form method="post" action="../includes/search.php" class="cherche"> 
+			<select>
+				<option>J'ai TROUVE un (une)...</option>
+				<option>Je CHERCHE un (une)...</option>
+			</select>
+			<input class='input' type="search" name="Psearch" size="50"> 
+			<input class='input' type="submit" value="Search"> 
+			
         </form> 
-        <br /> 
+		<div id="searchAvance">
+			<div id="btRechercheAvancee"><a>Recherche  avancée</a></div>
+			<div id="connecte"><a href="../pages/connexionForm.php">LOGIN</a> | <a href="../pages/newuser.php">NOUVEAU</a></div>
+		</div>
+     
+		<?php
+			}
+			else
+			{
+			?>
+				<form method="post" action="../includes/search.php" class="cherche"> 
+							<select>
+								<option>J'ai TROUVE un (une)...</option>
+								<option>Je CHERCHE un (une)...</option>
+							</select>
+							<input class='input' type="search" name="Psearch" size="50"> 
+							<input class='input' type="submit" value="Search"> 
+							
+				</form> 
+				<div id="searchAvance">		
+						<div id="btRechercheAvancee"><a>Recherche  avancée</a></div>
+						<div id="connecte"><a href="../pages/">MON COMPTE</a> | <a href="../includes/deconnexion.php">DECONNECTER</a></div>			
+				</div>
+		<?php
+			}
+			
+		?>
+		
+	
     </body>
 </html>
 
